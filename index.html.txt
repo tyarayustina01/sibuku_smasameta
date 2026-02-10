@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SI BUKU SMASAMETA - SMAN 1 Magetan</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+body {
+font-family: 'Plus Jakarta Sans', sans-serif;
+background-color: #f8fafc;
+}
+
+.bg-gradient-main {
+background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
+}
+
+.glass-card {
+background: rgba(255, 255, 255, 0.95);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tab-content {
+display: none;
+}
+
+.tab-content.active {
+display: block;
+animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+background: #cbd5e1;
+border-radius: 10px;
+}
+</style>
+</head>
+<body class="text-slate-800">
+
+<!-- Header / Navbar -->
+<header class="bg-gradient-main text-white sticky top-0 z-50 shadow-lg">
+<div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-4">
+<img src="https://smasa-magetan.sch.id/wp-content/uploads/2023/06/LOGO-SMA-NEGERI-1-MAGETAN-258x300.png"
+alt="Logo SMASA" class="h-12 w-auto filter drop-shadow-md">
+<div>
+<h1 class="text-xl font-extrabold tracking-tight">SI BUKU SMASAMETA</h1>
+<p class="text-xs font-medium opacity-80 uppercase tracking-widest">Perpustakaan SMAN 1 Magetan</p>
+</div>
+</div>
+
+<nav class="flex bg-black/20 p-1 rounded-2xl overflow-x-auto">
+<button onclick="showTab('form')" id="btn-form" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold transition-all bg-white text-blue-700 shadow-sm">
+<i class="fas fa-edit mr-2"></i>Form
+</button>
+<button onclick="showTab('riwayat')" id="btn-riwayat" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold transition-all hover:bg-white/10">
+<i class="fas fa-history mr-2"></i>Riwayat
+</button>
+<button onclick="showTab('peraturan')" id="btn-peraturan" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold transition-all hover:bg-white/10">
+<i class="fas fa-gavel mr-2"></i>Peraturan
+</button>
+<button onclick="showTab('pelayanan')" id="btn-pelayanan" class="nav-btn px-4 py-2 rounded-xl text-sm font-bold transition-all hover:bg-white/10">
+<i class="fas fa-headset mr-2"></i>Pelayanan
+</button>
+</nav>
+</div>
+</header>
+
+<!-- Motivasi Slider -->
+<section class="bg-indigo-50 border-b border-indigo-100 py-4">
+<div class="max-w-4xl mx-auto px-4 text-center">
+<p id="motivation-text" class="text-indigo-800 italic font-medium transition-opacity duration-500">
+"Buku adalah jendela dunia, membacanya berarti membuka cakrawala baru."
+</p>
+</div>
+</section>
+
+<main class="max-w-6xl mx-auto px-4 py-8">
+
+<!-- MODAL NOTIFIKASI -->
+<div id="notif" class="fixed top-24 right-4 bg-green-600 text-white px-6 py-4 rounded-2xl shadow-2xl z-[100] hidden items-center gap-3">
+<i class="fas fa-check-circle text-2xl"></i>
+<span class="font-bold">Data Berhasil Disimpan!</span>
+</div>
+
+<!-- MENU 1: FORM -->
+<div id="form" class="tab-content active">
+<div class="max-w-2xl mx-auto glass-card rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200">
+<div class="bg-gradient-main p-8 text-white text-center">
+<h2 class="text-2xl font-bold">Input Transaksi Buku</h2>
+<p class="opacity-80 text-sm mt-1">Lengkapi data untuk pendataan perpustakaan</p>
+</div>
+<form onsubmit="handleFormSubmit(event)" class="p-8 grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">Nama Lengkap</label>
+<input type="text" id="nama" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">Kelas</label>
+<select id="kelas" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+<option value="">Pilih Kelas</option>
+<option>X - Sepuluh</option>
+<option>XI - Sebelas</option>
+<option>XII - Duabelas</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">NIS</label>
+<input type="text" id="nis" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">No Whatsapp</label>
+<input type="tel" id="wa" required placeholder="08..." class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+</div>
+<div class="md:col-span-2 space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">Judul Buku</label>
+<input type="text" id="judul" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">ISBN Buku</label>
+<input type="text" id="isbn" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">Status</label>
+<select id="status" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+<option value="Peminjaman">Peminjaman</option>
+<option value="Pengembalian">Pengembalian</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-1">
+<label class="text-xs font-bold text-slate-500 uppercase ml-1">Tanggal</label>
+<input type="date" id="tanggal" required class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+</div>
+<button type="submit" class="md:col-span-2 bg-gradient-main text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all">
+Simpan Data
+</button>
+</form>
+</div>
+</div>
+
+<!-- MENU 2: RIWAYAT -->
+<div id="riwayat" class="tab-content">
+<div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+<div class="p-6 bg-slate-900 text-white flex justify-between items-center">
+<h2 class="text-xl font-bold"><i class="fas fa-table mr-2"></i>Log Spreadsheet Riwayat</h2>
+<span id="data-count" class="bg-blue-500 text-xs px-3 py-1 rounded-full">0 Data</span>
+</div>
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left">
+<thead class="bg-slate-50 border-b border-slate-200">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Nama Siswa / NIS</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Buku / ISBN</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Tanggal</th>
+</tr>
+</thead>
+<tbody id="riwayat-table-body" class="divide-y divide-slate-100">
+<!-- Data injected here -->
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- MENU 3: PERATURAN -->
+<div id="peraturan" class="tab-content">
+<div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+<div class="bg-white p-8 rounded-[2rem] shadow-xl border-l-8 border-blue-600">
+<h2 class="text-2xl font-bold mb-6 text-slate-800"><i class="fas fa-book-reader text-blue-600 mr-2"></i>Ketentuan Umum</h2>
+<ul class="space-y-4 text-slate-600">
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-green-500 mt-1"></i>
+Peminjam wajib menjaga kebersihan dan keutuhan buku.
+</li>
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-green-500 mt-1"></i>
+Maksimal peminjaman adalah 3 buku.
+</li>
+<li class="flex items-start gap-3">
+<i class="fas fa-check-circle text-green-500 mt-1"></i>
+Buku yang hilang wajib diganti dengan judul yang sama.
+</li>
+</ul>
+</div>
+<div class="bg-gradient-to-br from-red-500 to-purple-700 p-8 rounded-[2rem] shadow-xl text-white">
+<h2 class="text-2xl font-bold mb-4 uppercase italic">Peringatan Keras</h2>
+<div class="space-y-6">
+<div class="bg-white/10 p-4 rounded-2xl border border-white/20">
+<p class="text-sm font-medium opacity-80">Batas Waktu Pengembalian</p>
+<p class="text-3xl font-black">2 MINGGU</p>
+</div>
+<div class="bg-white/10 p-4 rounded-2xl border border-white/20">
+<p class="text-sm font-medium opacity-80">Denda Keterlambatan</p>
+<p class="text-3xl font-black">Rp 5.000 <span class="text-lg">/ Hari</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- MENU 4: PELAYANAN -->
+<div id="pelayanan" class="tab-content">
+<div class="max-w-xl mx-auto text-center bg-white p-12 rounded-[3rem] shadow-2xl border border-slate-100">
+<div class="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
+<i class="fab fa-whatsapp text-5xl"></i>
+</div>
+<h2 class="text-2xl font-bold mb-4">Butuh Bantuan?</h2>
+<p class="text-slate-600 mb-8 leading-relaxed">
+Untuk informasi lebih lanjut terkait pengembalian atau <span class="font-bold text-red-500">konfirmasi keterlambatan</span> hubungi nomor whatsapp berikut:
+</p>
+<a href="https://wa.me/6283166433347" target="_blank" class="inline-flex items-center gap-3 bg-green-500 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-green-600 transition-all shadow-xl hover:shadow-green-200">
+<i class="fab fa-whatsapp text-2xl"></i>
+0831 6643 3347
+</a>
+<p class="mt-8 text-xs text-slate-400 font-bold uppercase tracking-widest">Admin Perpustakaan SMASAMETA</p>
+</div>
+</div>
+
+</main>
+
+<footer class="py-10 text-center text-slate-400 text-xs font-bold uppercase tracking-widest">
+&copy; 2024 SMAN 1 Magetan - Dikembangkan untuk Perpustakaan Sekolah
+</footer>
+
+<script>
+// Data State
+let dbRiwayat = JSON.parse(localStorage.getItem('smasameta_db')) || [];
+
+// Motivasi Array
+const motivations = [
+"Buku adalah jendela dunia, membacanya berarti membuka cakrawala baru.",
+"Kedisiplinan dalam mengembalikan buku adalah cermin integritas seorang pelajar.",
+"Hari ini pembaca, esok menjadi pemimpin.",
+"Jangan hanya meminjam pengetahuan, hargai juga waktu orang lain dengan tertib mengembalikan."
+];
+let currentMotive = 0;
+
+// Auto change motivation
+setInterval(() => {
+currentMotive = (currentMotive + 1) % motivations.length;
+const el = document.getElementById('motivation-text');
+el.style.opacity = 0;
+setTimeout(() => {
+el.innerText = `"${motivations[currentMotive]}"`;
+el.style.opacity = 1;
+}, 500);
+}, 5000);
+
+// Tab Navigation
+function showTab(tabId) {
+document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+document.querySelectorAll('.nav-btn').forEach(btn => {
+btn.classList.remove('bg-white', 'text-blue-700', 'shadow-sm');
+btn.classList.add('hover:bg-white/10');
+});
+
+document.getElementById(tabId).classList.add('active');
+const activeBtn = document.getElementById('btn-' + tabId);
+activeBtn.classList.remove('hover:bg-white/10');
+activeBtn.classList.add('bg-white', 'text-blue-700', 'shadow-sm');
+
+if(tabId === 'riwayat') renderRiwayat();
+}
+
+// Handle Form
+function handleFormSubmit(e) {
+e.preventDefault();
+
+const data = {
+nama: document.getElementById('nama').value,
+kelas: document.getElementById('kelas').value,
+nis: document.getElementById('nis').value,
+wa: document.getElementById('wa').value,
+judul: document.getElementById('judul').value,
+isbn: document.getElementById('isbn').value,
+status: document.getElementById('status').value,
+tanggal: document.getElementById('tanggal').value,
+id: Date.now()
+};
+
+dbRiwayat.unshift(data);
+localStorage.setItem('smasameta_db', JSON.stringify(dbRiwayat));
+
+// Notif
+const notif = document.getElementById('notif');
+notif.style.display = 'flex';
+setTimeout(() => notif.style.display = 'none', 3000);
+
+e.target.reset();
+setTodayDate();
+}
+
+// Render Riwayat
+function renderRiwayat() {
+const body = document.getElementById('riwayat-table-body');
+const count = document.getElementById('data-count');
+count.innerText = `${dbRiwayat.length} Data`;
+
+if (dbRiwayat.length === 0) {
+body.innerHTML = `<tr><td colspan="4" class="py-20 text-center text-slate-300 font-medium">Belum ada riwayat transaksi</td></tr>`;
+return;
+}
+
+body.innerHTML = dbRiwayat.map(item => `
+<tr class="hover:bg-slate-50 transition-all">
+<td class="px-6 py-4">
+<div class="font-bold text-slate-700">${item.nama}</div>
+<div class="text-[10px] text-slate-400 font-mono tracking-tighter">NIS: ${item.nis} | ${item.kelas}</div>
+</td>
+<td class="px-6 py-4">
+<div class="font-medium text-slate-600">${item.judul}</div>
+<div class="text-[10px] text-slate-400 font-mono tracking-tighter">ISBN: ${item.isbn}</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full text-[10px] font-black uppercase ${item.status === 'Peminjaman' ? 'bg-blue-100 text-blue-600' : 'bg-purple-100 text-purple-600'}">
+${item.status}
+</span>
+</td>
+<td class="px-6 py-4 text-sm font-bold text-slate-500">
+${item.tanggal}
+</td>
+</tr>
+`).join('');
+}
+
+// Default Date
+function setTodayDate() {
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('tanggal').value = today;
+}
+
+window.onload = setTodayDate;
+</script>
+</body>
+</html>
+
